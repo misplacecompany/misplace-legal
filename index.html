@@ -3,190 +3,512 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MisPlace — Plus jamais perdre vos objets</title>
-  <meta name="description" content="MisPlace utilise l'intelligence artificielle et votre voix pour retrouver en quelques secondes tout ce que vous avez posé.">
+  <title>MisPlace — Ne perdez plus jamais vos objets</title>
+  <meta name="description" content="MisPlace utilise l'IA et votre voix pour retrouver en quelques secondes tout ce que vous avez posé. Dites-le, MisPlace s'en souvient.">
+  <meta property="og:title" content="MisPlace — Ne perdez plus jamais vos objets">
+  <meta property="og:description" content="Dites où vous posez vos affaires. L'IA s'en souvient pour vous.">
+  <meta name="theme-color" content="#E8402A">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#333;background:#F7F5F0}
-    .hero{background:#fff;padding:4rem 2rem 3rem;text-align:center;border-bottom:1px solid #eee}
-    .logo{font-size:48px;margin-bottom:1rem;display:inline-block;animation:bounce 1.2s ease infinite alternate}
-    @keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-10px)}}
-    .hero h1{font-size:2.2rem;font-weight:600;margin-bottom:1rem;line-height:1.2;color:#1a1a1a}
-    .hero p{font-size:1.1rem;color:#666;max-width:500px;margin:0 auto 2rem;line-height:1.7}
-    .btn-primary{display:inline-block;background:#E8402A;color:#fff;padding:14px 32px;border-radius:8px;font-size:1rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s}
-    .btn-primary:hover{background:#c73420;transform:scale(1.04)}
-    .section{padding:3rem 2rem;max-width:760px;margin:0 auto}
-    .section h2{font-size:1.5rem;font-weight:600;margin-bottom:2rem;text-align:center;color:#1a1a1a}
-    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
-    .step{background:#fff;border:1px solid #eee;border-radius:12px;padding:1.5rem 1rem;text-align:center;transition:transform .3s}
-    .step:hover{transform:translateY(-4px)}
-    .step-icon{font-size:2rem;margin-bottom:1rem}
-    .step h3{font-size:1rem;font-weight:600;margin-bottom:.5rem;color:#1a1a1a}
-    .step p{font-size:.875rem;color:#666;line-height:1.5}
-    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-    .feature{background:#fff;border:1px solid #eee;border-radius:12px;padding:1.25rem;transition:transform .3s}
-    .feature:hover{transform:translateY(-3px)}
-    .feature-icon{font-size:1.5rem;margin-bottom:.75rem}
-    .feature h3{font-size:.9375rem;font-weight:600;margin-bottom:.4rem;color:#1a1a1a}
-    .feature p{font-size:.8125rem;color:#666;line-height:1.5}
-    .pricing{background:#fff;padding:3rem 2rem;border-top:1px solid #eee;border-bottom:1px solid #eee}
-    .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:760px;margin:0 auto}
-    .plan{background:#F7F5F0;border:1px solid #eee;border-radius:12px;padding:1.5rem;transition:transform .3s}
-    .plan:hover{transform:translateY(-4px)}
-    .plan.featured{border:2px solid #E8402A}
-    .plan-badge{background:#fdecea;color:#E8402A;font-size:.75rem;padding:3px 10px;border-radius:8px;display:inline-block;margin-bottom:.75rem;font-weight:600}
-    .plan h3{font-size:1.1rem;font-weight:600;margin-bottom:.25rem;color:#1a1a1a}
-    .plan .price{font-size:1.75rem;font-weight:700;margin:.75rem 0 1rem;color:#1a1a1a}
-    .plan .price span{font-size:.875rem;font-weight:400;color:#666}
-    .plan ul{list-style:none;padding:0}
-    .plan ul li{font-size:.875rem;color:#555;padding:.3rem 0;display:flex;align-items:center;gap:8px;line-height:1.4}
-    .check{color:#1D9E75;font-weight:700}.cross{color:#E24B4A;font-weight:700}
-    .footer{background:#fff;border-top:1px solid #eee;padding:2rem;text-align:center}
-    .footer p{font-size:.8125rem;color:#888;margin-bottom:.75rem}
-    .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
-    .footer-links a{font-size:.8125rem;color:#E8402A;text-decoration:none}
-    .footer-links a:hover{text-decoration:underline}
-    .divider{border:none;border-top:1px solid #eee}
-    .reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+    :root{
+      --rouge:#E8402A;
+      --rouge-fonce:#c73420;
+      --rouge-pale:#fdecea;
+      --fond:#F7F5F0;
+      --blanc:#ffffff;
+      --noir:#161412;
+      --texte:#1f1d1a;
+      --gris:#6b6archives560;
+      --gris:#6b675f;
+      --gris-clair:#a39e94;
+      --border:#e9e5dd;
+      --radius:14px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;color:var(--texte);background:var(--fond);-webkit-font-smoothing:antialiased;line-height:1.5}
+
+    /* ═══════ NAV ═══════ */
+    nav{position:sticky;top:0;z-index:1000;background:rgba(247,245,240,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:1080px;margin:0 auto;padding:0 1.5rem;height:60px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{font-size:1.15rem;font-weight:800;color:var(--texte);text-decoration:none;display:flex;align-items:center;gap:7px;letter-spacing:-.02em}
+    .nav-links{display:flex;align-items:center;gap:26px}
+    .nav-links a{font-size:.875rem;font-weight:500;color:var(--gris);text-decoration:none;transition:color .2s}
+    .nav-links a:hover{color:var(--texte)}
+    .nav-cta{background:var(--rouge);color:#fff!important;padding:9px 18px;border-radius:99px;font-weight:600;transition:background .2s,transform .2s!important}
+    .nav-cta:hover{background:var(--rouge-fonce);transform:scale(1.03)}
+    @media(max-width:640px){.nav-links a:not(.nav-cta){display:none}}
+
+    /* ═══════ HERO ═══════ */
+    .hero{padding:4.5rem 1.5rem 5rem;overflow:hidden}
+    .hero-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
+    @media(max-width:820px){.hero-inner{grid-template-columns:1fr;text-align:center}.hero-phone{margin:0 auto}}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--rouge-pale);color:var(--rouge);font-size:.75rem;font-weight:700;padding:6px 14px;border-radius:99px;margin-bottom:1.5rem;letter-spacing:.03em}
+    .hero-badge .dot{width:6px;height:6px;background:var(--rouge);border-radius:50%;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+    .hero h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:1.25rem}
+    .hero h1 em{font-style:normal;color:var(--rouge)}
+    .hero-desc{font-size:1.1rem;color:var(--gris);max-width:440px;margin-bottom:2.25rem;line-height:1.65}
+    @media(max-width:820px){.hero-desc{margin-left:auto;margin-right:auto}}
+    .hero-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+    @media(max-width:820px){.hero-actions{justify-content:center}}
+    .btn-primary{display:inline-flex;align-items:center;gap:9px;background:var(--rouge);color:#fff;padding:15px 28px;border-radius:12px;font-size:1rem;font-weight:700;text-decoration:none;transition:background .2s,transform .2s;box-shadow:0 8px 24px rgba(232,64,42,.25)}
+    .btn-primary:hover{background:var(--rouge-fonce);transform:translateY(-2px)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:7px;color:var(--texte);padding:15px 20px;font-size:.9375rem;font-weight:600;text-decoration:none;border-radius:12px;transition:background .2s}
+    .btn-ghost:hover{background:rgba(0,0,0,.04)}
+    .hero-note{margin-top:1.1rem;font-size:.8125rem;color:var(--gris-clair)}
+
+    /* PHONE MOCKUP */
+    .hero-phone{width:290px;max-width:100%;position:relative}
+    .phone-frame{background:var(--noir);border-radius:38px;padding:12px;box-shadow:0 30px 80px rgba(0,0,0,.22),0 4px 16px rgba(0,0,0,.12);animation:float 5s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(1deg)}}
+    .phone-screen{background:var(--blanc);border-radius:28px;overflow:hidden;padding:1.2rem .9rem 1.4rem;min-height:480px;display:flex;flex-direction:column}
+    .phone-notch{width:100px;height:22px;background:var(--noir);border-radius:0 0 14px 14px;margin:-1.2rem auto .9rem}
+    .phone-title{font-size:1rem;font-weight:800;text-align:center;margin-bottom:1rem}
+    .chat{display:flex;flex-direction:column;gap:.6rem;flex:1}
+    .bubble{max-width:85%;padding:.65rem .85rem;border-radius:16px;font-size:.75rem;line-height:1.45;opacity:0;animation:pop .5s forwards}
+    .bubble.user{align-self:flex-end;background:var(--rouge);color:#fff;border-bottom-right-radius:5px}
+    .bubble.bot{align-self:flex-start;background:#f1efe9;color:var(--texte);border-bottom-left-radius:5px}
+    @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .b1{animation-delay:.6s}.b2{animation-delay:1.5s}.b3{animation-delay:2.6s}.b4{animation-delay:3.5s}
+    .phone-mic{width:58px;height:58px;background:var(--rouge);border-radius:50%;margin:1rem auto 0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 18px rgba(232,64,42,.4);animation:micPulse 2.4s infinite}
+    @keyframes micPulse{0%,100%{box-shadow:0 6px 18px rgba(232,64,42,.4)}50%{box-shadow:0 6px 18px rgba(232,64,42,.4),0 0 0 14px rgba(232,64,42,.08)}}
+
+    /* ═══════ SECTIONS COMMUNES ═══════ */
+    .section{padding:4.5rem 1.5rem}
+    .section-inner{max-width:1080px;margin:0 auto}
+    .section-label{font-size:.75rem;font-weight:800;color:var(--rouge);text-transform:uppercase;letter-spacing:.14em;margin-bottom:.75rem;text-align:center}
+    .section-title{font-size:clamp(1.5rem,3.4vw,2.3rem);font-weight:800;letter-spacing:-.02em;text-align:center;margin-bottom:.9rem}
+    .section-sub{font-size:1rem;color:var(--gris);text-align:center;max-width:520px;margin:0 auto 3rem;line-height:1.65}
+
+    /* ═══════ ÉTAPES ═══════ */
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem}
+    .step{background:var(--blanc);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem 1.4rem;text-align:center;transition:transform .3s,box-shadow .3s}
+    .step:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.07)}
+    .step-num{font-size:.7rem;font-weight:800;color:var(--rouge);letter-spacing:.12em;margin-bottom:.9rem}
+    .step-icon{font-size:2.1rem;margin-bottom:.9rem}
+    .step h3{font-size:1.05rem;font-weight:700;margin-bottom:.5rem}
+    .step p{font-size:.875rem;color:var(--gris);line-height:1.6}
+
+    /* ═══════ DÉMO PHRASE ═══════ */
+    .demo{background:var(--noir);color:#fff;padding:4.5rem 1.5rem}
+    .demo-inner{max-width:760px;margin:0 auto;text-align:center}
+    .demo .section-label{color:#ff8a76}
+    .demo .section-title{color:#fff}
+    .demo-examples{display:flex;flex-direction:column;gap:.9rem;margin-top:2.5rem;text-align:left}
+    .demo-row{display:flex;gap:1rem;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);padding:1.1rem 1.3rem;transition:background .3s}
+    .demo-row:hover{background:rgba(255,255,255,.08)}
+    .demo-emoji{font-size:1.4rem;flex-shrink:0}
+    .demo-text strong{display:block;font-size:.9375rem;font-weight:600;margin-bottom:.25rem}
+    .demo-text span{font-size:.8125rem;color:#b6b0a6;line-height:1.55}
+    .demo-text .ok{color:#6ee7a0;font-weight:700}
+
+    /* ═══════ FONCTIONNALITÉS ═══════ */
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.25rem}
+    .feature{background:var(--blanc);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem 1.4rem;transition:transform .3s,box-shadow .3s}
+    .feature:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.06)}
+    .feature-icon{width:46px;height:46px;background:var(--rouge-pale);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem}
+    .feature h3{font-size:1rem;font-weight:700;margin-bottom:.45rem}
+    .feature p{font-size:.8438rem;color:var(--gris);line-height:1.6}
+
+    /* ═══════ TARIFS ═══════ */
+    .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem;align-items:start}
+    .plan{background:var(--blanc);border:1px solid var(--border);border-radius:18px;padding:1.9rem 1.6rem;transition:transform .3s,box-shadow .3s;position:relative}
+    .plan:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(0,0,0,.08)}
+    .plan.featured{border:2px solid var(--rouge);box-shadow:0 18px 50px rgba(232,64,42,.14)}
+    .plan-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--rouge);color:#fff;font-size:.68rem;font-weight:800;padding:5px 14px;border-radius:99px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+    .plan-name{font-size:1rem;font-weight:800;margin-bottom:.2rem}
+    .plan-for{font-size:.78rem;color:var(--gris-clair);margin-bottom:1rem}
+    .plan-price{font-size:2.2rem;font-weight:800;letter-spacing:-.03em}
+    .plan-price small{font-size:.85rem;font-weight:500;color:var(--gris)}
+    .plan ul{list-style:none;margin-top:1.3rem;display:flex;flex-direction:column;gap:.55rem}
+    .plan li{font-size:.8625rem;color:var(--texte);display:flex;align-items:flex-start;gap:9px;line-height:1.45}
+    .plan li.off{color:var(--gris-clair)}
+    .pi{font-weight:800;flex-shrink:0}
+    .pi.on{color:#16a34a}.pi.no{color:#d4cfc5}
+    .plan-note{text-align:center;margin-top:2rem;font-size:.8125rem;color:var(--gris-clair)}
+
+    /* ═══════ FAQ ═══════ */
+    .faq-wrap{max-width:680px;margin:0 auto}
+    .faq-item{background:var(--blanc);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:.7rem;overflow:hidden;transition:box-shadow .3s}
+    .faq-item.open{box-shadow:0 10px 30px rgba(0,0,0,.06)}
+    .faq-q{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 1.3rem;cursor:pointer;font-size:.9375rem;font-weight:600;user-select:none}
+    .faq-arrow{font-size:.8rem;color:var(--gris-clair);transition:transform .3s;flex-shrink:0}
+    .faq-item.open .faq-arrow{transform:rotate(180deg)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-a p{padding:0 1.3rem 1.2rem;font-size:.875rem;color:var(--gris);line-height:1.7}
+    .faq-more{text-align:center;margin-top:1.8rem;font-size:.875rem;color:var(--gris)}
+    .faq-more a{color:var(--rouge);font-weight:600;text-decoration:none}
+    .faq-more a:hover{text-decoration:underline}
+
+    /* ═══════ CTA FINAL ═══════ */
+    .final-cta{background:linear-gradient(135deg,var(--rouge),#f06449);border-radius:24px;padding:3.5rem 2rem;text-align:center;color:#fff;max-width:1080px;margin:0 auto}
+    .final-cta h2{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:.9rem}
+    .final-cta p{font-size:1rem;opacity:.92;margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto}
+    .btn-white{display:inline-flex;align-items:center;gap:9px;background:#fff;color:var(--rouge);padding:15px 30px;border-radius:12px;font-size:1rem;font-weight:800;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 10px 30px rgba(0,0,0,.15)}
+    .btn-white:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(0,0,0,.22)}
+
+    /* ═══════ CONTACT ═══════ */
+    .contact{padding:4.5rem 1.5rem;text-align:center}
+    .contact-card{max-width:520px;margin:0 auto;background:var(--blanc);border:1px solid var(--border);border-radius:20px;padding:2.6rem 2rem}
+    .contact-card .ci{font-size:2.2rem;margin-bottom:1rem}
+    .contact-card h2{font-size:1.4rem;font-weight:800;margin-bottom:.6rem}
+    .contact-card p{font-size:.9375rem;color:var(--gris);margin-bottom:1.6rem;line-height:1.65}
+    .contact-mail{display:inline-flex;align-items:center;gap:9px;background:var(--noir);color:#fff;padding:13px 24px;border-radius:12px;font-size:.9375rem;font-weight:600;text-decoration:none;transition:transform .2s,opacity .2s}
+    .contact-mail:hover{transform:translateY(-2px);opacity:.9}
+
+    /* ═══════ FOOTER ═══════ */
+    footer{background:var(--noir);color:#fff;padding:3.5rem 1.5rem 2rem}
+    .footer-inner{max-width:1080px;margin:0 auto}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:2.5rem;margin-bottom:2.5rem}
+    @media(max-width:760px){.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+    .f-brand .f-logo{font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:7px;margin-bottom:.8rem}
+    .f-brand p{font-size:.8125rem;color:#8d887e;line-height:1.65;max-width:250px}
+    .f-col h4{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#8d887e;margin-bottom:.9rem}
+    .f-col a{display:block;font-size:.8438rem;color:#d5d1c9;text-decoration:none;margin-bottom:.55rem;transition:color .2s}
+    .f-col a:hover{color:#fff}
+    .f-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:1.6rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+    .f-bottom p{font-size:.75rem;color:#6f6a61}
+
+    /* ═══════ ANIMATIONS SCROLL ═══════ */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s cubic-bezier(.2,.6,.2,1),transform .65s cubic-bezier(.2,.6,.2,1)}
     .reveal.visible{opacity:1;transform:translateY(0)}
-    .reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .6s ease,transform .6s ease}
-    .reveal-left.visible{opacity:1;transform:translateX(0)}
-    .reveal-right{opacity:0;transform:translateX(30px);transition:opacity .6s ease,transform .6s ease}
-    .reveal-right.visible{opacity:1;transform:translateX(0)}
-    @media(max-width:600px){.hero h1{font-size:1.7rem}.plan .price{font-size:1.4rem}}
+    .reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal-l.visible{opacity:1;transform:translateX(0)}
+    .reveal-r{opacity:0;transform:translateX(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal-r.visible{opacity:1;transform:translateX(0)}
   </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="logo">📍</div>
-  <h1>Plus jamais perdre<br>vos objets</h1>
-  <p>MisPlace utilise l'intelligence artificielle et votre voix pour retrouver en quelques secondes tout ce que vous avez posé.</p>
-  <a href="#" class="btn-primary">Télécharger sur Android</a>
-</div>
-
-<div class="section">
-  <h2 class="reveal">Comment ça marche</h2>
-  <div class="steps">
-    <div class="step reveal" style="transition-delay:.0s">
-      <div class="step-icon">🎙️</div>
-      <h3>Parlez</h3>
-      <p>Dites simplement où vous posez votre objet, comme à un ami.</p>
-    </div>
-    <div class="step reveal" style="transition-delay:.15s">
-      <div class="step-icon">🤖</div>
-      <h3>L'IA comprend</h3>
-      <p>MisPlace analyse votre phrase et enregistre l'objet avec sa position GPS.</p>
-    </div>
-    <div class="step reveal" style="transition-delay:.3s">
-      <div class="step-icon">🗺️</div>
-      <h3>Retrouvez</h3>
-      <p>Demandez où est votre objet — MisPlace vous répond instantanément.</p>
+<!-- ═══════ NAV ═══════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">📍 MisPlace</a>
+    <div class="nav-links">
+      <a href="#comment">Comment ça marche</a>
+      <a href="#fonctionnalites">Fonctionnalités</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#faq">FAQ</a>
+      <a href="#telecharger" class="nav-cta">Télécharger</a>
     </div>
   </div>
+</nav>
 
-  <hr class="divider" style="margin:2.5rem 0">
-
-  <h2 class="reveal">Fonctionnalités</h2>
-  <div class="features">
-    <div class="feature reveal-left" style="transition-delay:.0s">
-      <div class="feature-icon">🎙️</div>
-      <h3>Assistant vocal</h3>
-      <p>Enregistrez et retrouvez vos objets à la voix, sans taper une seule lettre.</p>
+<!-- ═══════ HERO ═══════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span class="dot"></span> Propulsé par Claude AI</div>
+      <h1>Ne perdez plus<br>jamais <em>vos objets</em></h1>
+      <p class="hero-desc">Dites à MisPlace où vous posez vos affaires. Il s'en souvient pour vous — et vous répond instantanément quand vous cherchez.</p>
+      <div class="hero-actions">
+        <a href="#telecharger" class="btn-primary">Télécharger sur Android</a>
+        <a href="#comment" class="btn-ghost">Voir comment ça marche ↓</a>
+      </div>
+      <p class="hero-note">Gratuit pour commencer · Sans engagement</p>
     </div>
-    <div class="feature reveal-left" style="transition-delay:.15s">
-      <div class="feature-icon">🗺️</div>
-      <h3>Carte GPS</h3>
-      <p>Visualisez tous vos objets sur une carte interactive en temps réel.</p>
-    </div>
-    <div class="feature reveal-right" style="transition-delay:.0s">
-      <div class="feature-icon">🤖</div>
-      <h3>IA intelligente</h3>
-      <p>Comprend le français naturel — dites ce que vous voulez, MisPlace comprend.</p>
-    </div>
-    <div class="feature reveal-right" style="transition-delay:.15s">
-      <div class="feature-icon">👨‍👩‍👧</div>
-      <h3>Partage famille</h3>
-      <p>Partagez vos objets avec votre famille — chacun sait où tout est rangé.</p>
+    <div class="hero-phone">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-title">📍 MisPlace</div>
+          <div class="chat">
+            <div class="bubble user b1">J'ai posé mes clés sur la table de l'entrée 🔑</div>
+            <div class="bubble bot b2">C'est noté ! Vos clés sont enregistrées sur la table de l'entrée ✓</div>
+            <div class="bubble user b3">Où sont mes clés ?</div>
+            <div class="bubble bot b4">Vos clés se trouvent sur la table de l'entrée 📍</div>
+          </div>
+          <div class="phone-mic">🎙️</div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</header>
 
-<div class="pricing">
-  <div style="text-align:center;margin-bottom:2rem">
-    <h2 class="reveal" style="font-size:1.5rem;font-weight:600;color:#1a1a1a">Tarifs simples et transparents</h2>
-  </div>
-  <div class="pricing-grid">
-    <div class="plan reveal" style="transition-delay:.0s">
-      <h3>Gratuit</h3>
-      <div class="price">0€ <span>/ mois</span></div>
-      <ul>
-        <li><span class="check">✓</span> 3 objets maximum</li>
-        <li><span class="check">✓</span> Saisie texte</li>
-        <li><span class="cross">✗</span> Assistant vocal</li>
-        <li><span class="cross">✗</span> Carte GPS</li>
-        <li><span class="cross">✗</span> Partage famille</li>
-      </ul>
-    </div>
-    <div class="plan featured reveal" style="transition-delay:.15s">
-      <div class="plan-badge">Le plus populaire</div>
-      <h3>Solo Premium</h3>
-      <div class="price">4,99€ <span>/ mois</span></div>
-      <ul>
-        <li><span class="check">✓</span> Objets illimités</li>
-        <li><span class="check">✓</span> Assistant vocal</li>
-        <li><span class="check">✓</span> Carte GPS</li>
-        <li><span class="check">✓</span> Historique complet</li>
-        <li><span class="cross">✗</span> Partage famille</li>
-      </ul>
-    </div>
-    <div class="plan reveal" style="transition-delay:.3s">
-      <h3>Familial</h3>
-      <div class="price">18,99€ <span>/ mois</span></div>
-      <ul>
-        <li><span class="check">✓</span> Tout Solo Premium</li>
-        <li><span class="check">✓</span> 5 membres</li>
-        <li><span class="check">✓</span> Partage d'objets</li>
-        <li><span class="check">✓</span> Notifications famille</li>
-        <li><span class="check">✓</span> Gestion des accès</li>
-      </ul>
+<!-- ═══════ COMMENT ÇA MARCHE ═══════ -->
+<section id="comment" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">Comment ça marche</p>
+    <h2 class="section-title reveal">Aussi simple que parler</h2>
+    <p class="section-sub reveal">Pas de formulaires compliqués, pas de menus interminables. Vous parlez, MisPlace comprend.</p>
+    <div class="steps">
+      <div class="step reveal" style="transition-delay:.05s">
+        <div class="step-num">ÉTAPE 01</div>
+        <div class="step-icon">🎙️</div>
+        <h3>Parlez</h3>
+        <p>Dites naturellement où vous posez votre objet, comme vous le diriez à un ami.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:.15s">
+        <div class="step-num">ÉTAPE 02</div>
+        <div class="step-icon">🤖</div>
+        <h3>L'IA comprend</h3>
+        <p>Claude AI analyse votre phrase et enregistre l'objet, le lieu et la position GPS.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:.25s">
+        <div class="step-num">ÉTAPE 03</div>
+        <div class="step-icon">⚡</div>
+        <h3>Retrouvez</h3>
+        <p>Demandez où est votre objet — réponse vocale instantanée, en une seconde.</p>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="footer reveal">
-  <p>© 2026 MisPlace — misplacecompagny@gmail.com</p>
-  <div class="footer-links">
-    <a href="privacy.html">Confidentialité (FR)</a>
-    <a href="terms.html">CGU (FR)</a>
-    <a href="privacy-en.html">Privacy (EN)</a>
-    <a href="terms-en.html">Terms (EN)</a>
-    <a href="privacy-de.html">Datenschutz (DE)</a>
-    <a href="terms-de.html">Nutzungsbedingungen (DE)</a>
-    <a href="privacy-es.html">Privacidad (ES)</a>
-    <a href="terms-es.html">Términos (ES)</a>
-    <a href="privacy-it.html">Privacy (IT)</a>
-    <a href="terms-it.html">Termini (IT)</a>
-    <a href="privacy-pt.html">Privacidade (PT)</a>
-    <a href="terms-pt.html">Termos (PT)</a>
-    <a href="privacy-ar.html">الخصوصية (AR)</a>
-    <a href="terms-ar.html">الشروط (AR)</a>
-    <a href="privacy-zh.html">隐私 (ZH)</a>
-    <a href="terms-zh.html">条款 (ZH)</a>
+<!-- ═══════ DÉMO ═══════ -->
+<section class="demo">
+  <div class="demo-inner">
+    <p class="section-label reveal">Parlez naturellement</p>
+    <h2 class="section-title reveal">MisPlace comprend tout</h2>
+    <div class="demo-examples">
+      <div class="demo-row reveal-l" style="transition-delay:.05s">
+        <div class="demo-emoji">🚗</div>
+        <div class="demo-text">
+          <strong>"La voiture est garée place 500 au niveau -2"</strong>
+          <span><span class="ok">✓ Compris</span> — Véhicule enregistré : place 500, niveau -2, avec position GPS</span>
+        </div>
+      </div>
+      <div class="demo-row reveal-r" style="transition-delay:.12s">
+        <div class="demo-emoji">👓</div>
+        <div class="demo-text">
+          <strong>"J'ai laissé mes lunettes dans le tiroir de la cuisine"</strong>
+          <span><span class="ok">✓ Compris</span> — Objet enregistré : lunettes, dans le tiroir de la cuisine</span>
+        </div>
+      </div>
+      <div class="demo-row reveal-l" style="transition-delay:.19s">
+        <div class="demo-emoji">📦</div>
+        <div class="demo-text">
+          <strong>"Le colis est chez la voisine du 3ème"</strong>
+          <span><span class="ok">✓ Compris</span> — Colis enregistré : chez la voisine du 3ème étage</span>
+        </div>
+      </div>
+      <div class="demo-row reveal-r" style="transition-delay:.26s">
+        <div class="demo-emoji">🔍</div>
+        <div class="demo-text">
+          <strong>"Où sont mes clés ?"</strong>
+          <span><span class="ok">✓ Réponse vocale</span> — "Vos clés se trouvent sur la table de l'entrée"</span>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- ═══════ FONCTIONNALITÉS ═══════ -->
+<section id="fonctionnalites" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">Fonctionnalités</p>
+    <h2 class="section-title reveal">Pensé pour la vraie vie</h2>
+    <p class="section-sub reveal">Des fonctionnalités utiles au quotidien, sans superflu.</p>
+    <div class="features">
+      <div class="feature reveal" style="transition-delay:.05s">
+        <div class="feature-icon">🎙️</div>
+        <h3>Assistant vocal</h3>
+        <p>Enregistrez et retrouvez vos objets à la voix, sans taper une seule lettre. En français naturel.</p>
+      </div>
+      <div class="feature reveal" style="transition-delay:.1s">
+        <div class="feature-icon">🗺️</div>
+        <h3>Carte GPS</h3>
+        <p>Chaque objet est localisé sur une carte interactive. Idéal pour les parkings et les grands espaces.</p>
+      </div>
+      <div class="feature reveal" style="transition-delay:.15s">
+        <div class="feature-icon">🔐</div>
+        <h3>Coffre-fort secret</h3>
+        <p>Protégez vos objets sensibles derrière votre empreinte digitale. Invisibles sans votre accord.</p>
+      </div>
+      <div class="feature reveal" style="transition-delay:.2s">
+        <div class="feature-icon">👨‍👩‍👧</div>
+        <h3>Partage famille</h3>
+        <p>Partagez la position d'objets communs avec votre famille. Chacun accepte ce qu'il partage.</p>
+      </div>
+      <div class="feature reveal" style="transition-delay:.25s">
+        <div class="feature-icon">🧠</div>
+        <h3>IA Claude</h3>
+        <p>L'une des IA les plus avancées au monde comprend vos phrases, même complexes.</p>
+      </div>
+      <div class="feature reveal" style="transition-delay:.3s">
+        <div class="feature-icon">📂</div>
+        <h3>Catégories automatiques</h3>
+        <p>Véhicules, documents, animaux, colis — MisPlace classe tout automatiquement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TARIFS ═══════ -->
+<section id="tarifs" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">Tarifs</p>
+    <h2 class="section-title reveal">Simple et transparent</h2>
+    <p class="section-sub reveal">Commencez gratuitement. Passez au niveau supérieur quand vous voulez.</p>
+    <div class="plans">
+      <div class="plan reveal" style="transition-delay:.05s">
+        <div class="plan-name">Gratuit</div>
+        <div class="plan-for">Pour découvrir</div>
+        <div class="plan-price">0€<small> / mois</small></div>
+        <ul>
+          <li><span class="pi on">✓</span> 3 objets maximum</li>
+          <li><span class="pi on">✓</span> Saisie texte simple</li>
+          <li class="off"><span class="pi no">✗</span> Assistant vocal</li>
+          <li class="off"><span class="pi no">✗</span> Carte GPS</li>
+          <li class="off"><span class="pi no">✗</span> Coffre-fort secret</li>
+          <li class="off"><span class="pi no">✗</span> Partage famille</li>
+        </ul>
+      </div>
+      <div class="plan featured reveal" style="transition-delay:.15s">
+        <div class="plan-tag">Le plus populaire</div>
+        <div class="plan-name">Solo Premium</div>
+        <div class="plan-for">Pour ne plus rien perdre</div>
+        <div class="plan-price">4,99€<small> / mois</small></div>
+        <ul>
+          <li><span class="pi on">✓</span> Objets illimités</li>
+          <li><span class="pi on">✓</span> Assistant vocal IA</li>
+          <li><span class="pi on">✓</span> Carte GPS interactive</li>
+          <li><span class="pi on">✓</span> Coffre-fort secret</li>
+          <li><span class="pi on">✓</span> Historique complet</li>
+          <li class="off"><span class="pi no">✗</span> Partage famille</li>
+        </ul>
+      </div>
+      <div class="plan reveal" style="transition-delay:.25s">
+        <div class="plan-name">Familial</div>
+        <div class="plan-for">Pour toute la maison</div>
+        <div class="plan-price">18,99€<small> / mois</small></div>
+        <ul>
+          <li><span class="pi on">✓</span> Tout Solo Premium</li>
+          <li><span class="pi on">✓</span> Jusqu'à 5 membres</li>
+          <li><span class="pi on">✓</span> Partage d'objets</li>
+          <li><span class="pi on">✓</span> Notifications famille</li>
+          <li><span class="pi on">✓</span> Gestion des accès</li>
+        </ul>
+      </div>
+    </div>
+    <p class="plan-note reveal">Prix en euros, ou équivalent en devise locale. Annulable à tout moment depuis le Play Store.</p>
+  </div>
+</section>
+
+<!-- ═══════ FAQ ═══════ -->
+<section id="faq" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">FAQ</p>
+    <h2 class="section-title reveal">Tout ce que vous voulez savoir</h2>
+    <p class="section-sub reveal">Les réponses aux questions les plus fréquentes.</p>
+    <div class="faq-wrap">
+      <div class="faq-item reveal">
+        <div class="faq-q">Comment fonctionne l'assistant vocal ? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p>Dites simplement où vous posez votre objet, par exemple « J'ai posé mes clés sur la table de l'entrée ». MisPlace comprend votre phrase grâce à l'IA Claude et l'enregistre avec la position GPS. Pour retrouver, demandez « Où sont mes clés ? » — la réponse est instantanée et vocale.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Mes données sont-elles privées et sécurisées ? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p>Oui. Vos objets sont strictement privés et accessibles uniquement depuis votre compte. Les données sont stockées de manière sécurisée sur l'infrastructure Google Firebase. Aucune donnée n'est vendue à des tiers.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Qu'est-ce que le coffre-fort secret ? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p>C'est un espace protégé par votre empreinte digitale ou reconnaissance faciale. Les objets qui s'y trouvent n'apparaissent nulle part ailleurs dans l'app — même si quelqu'un a votre téléphone en main. Parfait pour les bijoux, l'argent liquide ou les cadeaux à cacher.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Comment fonctionne le partage familial ? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p>Avec le plan Familial, jusqu'à 5 membres peuvent partager des objets. Chaque partage nécessite l'accord du destinataire, et vos objets privés restent toujours privés. Idéal pour la voiture familiale ou les clés de la maison.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Puis-je annuler mon abonnement à tout moment ? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p>Oui, en deux clics depuis le Google Play Store. Après annulation, vous conservez le Premium jusqu'à la fin de la période déjà payée, puis vous repassez automatiquement au plan Gratuit — sans perdre vos objets.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">L'application fonctionne-t-elle hors ligne ? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p>Vous pouvez consulter vos objets déjà enregistrés hors connexion. L'assistant vocal et l'enregistrement de nouveaux objets nécessitent une connexion internet, car l'IA fonctionne dans le cloud.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Sur quels appareils MisPlace est-il disponible ? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p>MisPlace est actuellement disponible sur Android via le Google Play Store. Une version iOS est prévue prochainement.</p></div>
+      </div>
+    </div>
+    <p class="faq-more reveal">Une autre question ? <a href="mailto:misplacecompagny@gmail.com">Écrivez-nous</a></p>
+  </div>
+</section>
+
+<!-- ═══════ CTA FINAL ═══════ -->
+<section id="telecharger" class="section">
+  <div class="final-cta reveal">
+    <h2>Prêt à ne plus jamais rien perdre ?</h2>
+    <p>Téléchargez MisPlace gratuitement et découvrez votre nouvelle mémoire intelligente.</p>
+    <a href="#" class="btn-white">📲 Télécharger sur Android</a>
+  </div>
+</section>
+
+<!-- ═══════ CONTACT ═══════ -->
+<section id="contact" class="contact">
+  <div class="contact-card reveal">
+    <div class="ci">💬</div>
+    <h2>Une question ? On est là.</h2>
+    <p>Support, suggestions, partenariats — notre équipe vous répond dans les plus brefs délais.</p>
+    <a href="mailto:misplacecompagny@gmail.com" class="contact-mail">✉️ misplacecompagny@gmail.com</a>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">📍 MisPlace</div>
+        <p>Votre mémoire intelligente. Dites-le une fois, retrouvez-le toujours.</p>
+      </div>
+      <div class="f-col">
+        <h4>Produit</h4>
+        <a href="#comment">Comment ça marche</a>
+        <a href="#fonctionnalites">Fonctionnalités</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="f-col">
+        <h4>Légal</h4>
+        <a href="privacy.html">Confidentialité</a>
+        <a href="terms.html">Conditions d'utilisation</a>
+      </div>
+      <div class="f-col">
+        <h4>Autres langues</h4>
+        <a href="privacy-en.html">English — Privacy · <span style="color:#8d887e">Terms</span></a>
+        <a href="privacy-de.html">Deutsch — Datenschutz</a>
+        <a href="privacy-es.html">Español — Privacidad</a>
+        <a href="privacy-it.html">Italiano — Privacy</a>
+        <a href="privacy-pt.html">Português — Privacidade</a>
+        <a href="privacy-ar.html">العربية — الخصوصية</a>
+        <a href="privacy-zh.html">中文 — 隐私</a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p>© 2026 MisPlace. Tous droits réservés.</p>
+      <p><a href="mailto:misplacecompagny@gmail.com" style="color:#6f6a61;text-decoration:none">misplacecompagny@gmail.com</a></p>
+    </div>
+  </div>
+</footer>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
+// ═══ Animations au scroll ═══
+const io = new IntersectionObserver((entries) => {
   entries.forEach(e => {
-    if(e.isIntersecting) {
+    if(e.isIntersecting){
       e.target.classList.add('visible');
-      observer.unobserve(e.target);
+      io.unobserve(e.target);
     }
   });
-}, {threshold: 0.15});
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-  observer.observe(el);
+}, {threshold:.12});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => io.observe(el));
+
+// ═══ FAQ accordéon ═══
+document.querySelectorAll('.faq-item').forEach(item => {
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  q.addEventListener('click', () => {
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if(!open){
+      item.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
 });
 </script>
 
