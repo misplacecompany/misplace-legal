@@ -18,7 +18,6 @@
       --blanc:#ffffff;
       --noir:#161412;
       --texte:#1f1d1a;
-      --gris:#6b6archives560;
       --gris:#6b675f;
       --gris-clair:#a39e94;
       --border:#e9e5dd;
@@ -147,15 +146,6 @@
     .btn-white{display:inline-flex;align-items:center;gap:9px;background:#fff;color:var(--rouge);padding:15px 30px;border-radius:12px;font-size:1rem;font-weight:800;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 10px 30px rgba(0,0,0,.15)}
     .btn-white:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(0,0,0,.22)}
 
-    /* ═══════ CONTACT ═══════ */
-    .contact{padding:4.5rem 1.5rem;text-align:center}
-    .contact-card{max-width:520px;margin:0 auto;background:var(--blanc);border:1px solid var(--border);border-radius:20px;padding:2.6rem 2rem}
-    .contact-card .ci{font-size:2.2rem;margin-bottom:1rem}
-    .contact-card h2{font-size:1.4rem;font-weight:800;margin-bottom:.6rem}
-    .contact-card p{font-size:.9375rem;color:var(--gris);margin-bottom:1.6rem;line-height:1.65}
-    .contact-mail{display:inline-flex;align-items:center;gap:9px;background:var(--noir);color:#fff;padding:13px 24px;border-radius:12px;font-size:.9375rem;font-weight:600;text-decoration:none;transition:transform .2s,opacity .2s}
-    .contact-mail:hover{transform:translateY(-2px);opacity:.9}
-
     /* ═══════ FOOTER ═══════ */
     footer{background:var(--noir);color:#fff;padding:3.5rem 1.5rem 2rem}
     .footer-inner{max-width:1080px;margin:0 auto}
@@ -190,7 +180,8 @@
       <a href="#fonctionnalites">Fonctionnalités</a>
       <a href="#tarifs">Tarifs</a>
       <a href="#faq">FAQ</a>
-      <a href="#telecharger" class="nav-cta">Télécharger</a>
+      <!-- Lien direct vers le Play Store -->
+      <a href="#" class="nav-cta">Télécharger</a>
     </div>
   </div>
 </nav>
@@ -203,7 +194,8 @@
       <h1>Ne perdez plus<br>jamais <em>vos objets</em></h1>
       <p class="hero-desc">Dites à MisPlace où vous posez vos affaires. Il s'en souvient pour vous — et vous répond instantanément quand vous cherchez.</p>
       <div class="hero-actions">
-        <a href="#telecharger" class="btn-primary">Télécharger sur Android</a>
+        <!-- Bouton de téléchargement unique — lien direct Play Store -->
+        <a href="#" class="btn-primary">📲 Télécharger sur Android</a>
         <a href="#comment" class="btn-ghost">Voir comment ça marche ↓</a>
       </div>
       <p class="hero-note">Gratuit pour commencer · Sans engagement</p>
@@ -425,22 +417,13 @@
   </div>
 </section>
 
-<!-- ═══════ CTA FINAL ═══════ -->
+<!-- ═══════ CTA FINAL — Contact ═══════ -->
+<!-- Section contact intégrée ici, section #contact séparée supprimée -->
 <section id="telecharger" class="section">
   <div class="final-cta reveal">
-    <h2>Prêt à ne plus jamais rien perdre ?</h2>
-    <p>Téléchargez MisPlace gratuitement et découvrez votre nouvelle mémoire intelligente.</p>
-    <a href="#" class="btn-white">📲 Télécharger sur Android</a>
-  </div>
-</section>
-
-<!-- ═══════ CONTACT ═══════ -->
-<section id="contact" class="contact">
-  <div class="contact-card reveal">
-    <div class="ci">💬</div>
     <h2>Une question ? On est là.</h2>
     <p>Support, suggestions, partenariats — notre équipe vous répond dans les plus brefs délais.</p>
-    <a href="mailto:misplacecompany@gmail.com" class="contact-mail">✉️ misplacecompany@gmail.com</a>
+    <a href="mailto:misplacecompany@gmail.com" class="btn-white">✉️ misplacecompany@gmail.com</a>
   </div>
 </section>
 
